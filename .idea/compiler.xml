@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="manager-assembly" />
+        <module name="manager-core" />
+        <module name="manager-mybatis" />
+        <module name="manager-webapp" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="manager" target="1.8" />
+      <module name="manager-assembly" target="1.8" />
+      <module name="manager-core" target="1.8" />
+      <module name="manager-mybatis" target="1.8" />
+      <module name="manager-webapp" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
