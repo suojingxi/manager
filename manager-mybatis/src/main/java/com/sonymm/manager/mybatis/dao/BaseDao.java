@@ -30,7 +30,7 @@ public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
     @Override
     public Serializable save(T entity) {
         String statements = getMapperNamespace() + ".insert";
-        if(entity != null){
+        if (entity != null) {
             entity.setCreateTime(new Date());
             entity.setUpdateTime(new Date());
             entity.setIsDelete(BigInteger.ZERO.intValue());
@@ -42,7 +42,7 @@ public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
     public Serializable save(String key, Object param) {
         String statements = getMapperNamespace() + "." + key;
         BaseEntity entity = null;
-        if(param != null && param instanceof BaseEntity){
+        if (param != null && param instanceof BaseEntity) {
             entity = (BaseEntity) param;
             entity.setCreateTime(new Date());
             entity.setUpdateTime(new Date());
@@ -59,7 +59,7 @@ public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
 
     @Override
     public void delete(T[] entities) {
-        for(T entity : entities){
+        for (T entity : entities) {
             this.delete(entity);
         }
     }
@@ -103,7 +103,7 @@ public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
         String statements = getMapperNamespace() + "." + key;
         Map<String, Object> filters = new HashMap<>();
         if (param != null) {
-            Map<String,Object> parameterObject = new HashMap();
+            Map<String, Object> parameterObject = new HashMap();
             if (param instanceof Map) {
                 parameterObject = (Map) param;
             } else if (param.getClass().isArray()) {
@@ -149,7 +149,7 @@ public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
     }
 
     @Override
-    public List<Map<String, Object>> findMap(String key) {
+    public List findMap(String key) {
         return this.findMap(key, null, null);
     }
 
@@ -159,7 +159,7 @@ public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
     }
 
     @Override
-    public List<Map<String, Object>> findMap(String key, Object param, Page page) {
+    public List findMap(String key, Object param, Page page) {
         String statement = getMapperNamespace() + "." + key;
         Map<String, Object> filters = new HashMap<>();
         if (param != null) {
@@ -179,28 +179,28 @@ public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
         return this.sqlSessionTemplate.selectList(statement, filters.size() == 0 ? param : filters);
     }
 
-    private int getCount(Map<String, Object> param){
+    private int getCount(Map<String, Object> param) {
         String statement = this.getEntityClass() + ".getCount";
         return this.sqlSessionTemplate.selectOne(statement, param);
     }
 
-    private String getMapperNamespace(){
+    private String getMapperNamespace() {
         return this.getEntityClass();
     }
 
-    private String getEntityClass(){
-        if(!Strings.isNullOrEmpty(entityClassName)){
+    private String getEntityClass() {
+        if (!Strings.isNullOrEmpty(entityClassName)) {
             return entityClassName;
         }
         Type cls = super.getClass().getGenericSuperclass();
-        if(cls instanceof ParameterizedType){
+        if (cls instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType) cls;
             //获取所有放到泛型里面的类型
             Type[] types = parameterizedType.getActualTypeArguments();
-            try{
+            try {
                 //获取第一个注解
                 entityClassName = types[0].getTypeName();
-            } catch (Exception e){
+            } catch (Exception e) {
                 throw new RuntimeException("fail to get entity anotation", e);
             }
         }

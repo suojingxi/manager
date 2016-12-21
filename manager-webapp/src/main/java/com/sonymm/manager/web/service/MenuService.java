@@ -20,6 +20,6 @@ public interface MenuService {
     List<Menu> getByParentId(String menuId);
     Response getResTree(String roleId);
     Response getSelectResTree();
-    Menu detail(String menuId);
+    Menu detail(String resId);
     Response getTree();
 }

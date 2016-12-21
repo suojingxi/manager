@@ -6,10 +6,19 @@ package com.sonymm.manager.core;
  */
 public interface ResponseCode {
 
+    /**
+     * 成功
+     */
     Integer SUCCESS = 0;
 
+    /**
+     * 失败
+     */
     Integer ERROR = 1;
 
+    /**
+     * 参数有误：参数不能为空
+     */
     Integer INVALID_PARAM = 2;
 
     Integer EXSIED = 3;

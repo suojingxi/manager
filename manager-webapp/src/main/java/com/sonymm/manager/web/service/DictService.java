@@ -17,6 +17,6 @@ public interface DictService {
     List<JSTree> getTree();
     List<Dict> getListByParentId(String parentId);
     List<Dict> getCatagory();
-    void delete(List<String> id);
+    void delete(List<String> ids);
     Dict getById(String id);
 }

@@ -9,6 +9,7 @@ import com.sonymm.manager.web.service.DictService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -30,7 +31,7 @@ public class DictServiceImpl implements DictService {
         checkArgument(!Strings.isNullOrEmpty(dict.getCode()), "字典Code不能为空");
         checkArgument(!Strings.isNullOrEmpty(dict.getName()), "字典名称不能为空");
         checkArgument(!Strings.isNullOrEmpty(dict.getIsCatagory()), "字典类型不能为空");
-        if(dict.getParentId() == null){
+        if (dict.getParentId() == null) {
             dict.setParentId("#");
         }
         dictDao.save(dict);
@@ -48,27 +49,35 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public List<JSTree> getTree() {
-//        return dictDao.findMap("getTree");
-        return null;
+        return dictDao.findMap("getTree");
     }
 
     @Override
     public List<Dict> getListByParentId(String parentId) {
-        return null;
+        List<Dict> dictList = new LinkedList<Dict>();
+        List<Dict> subList = dictDao.find("getListByParentId", parentId);
+        Dict dict = dictDao.findUnique("getById", parentId);
+        dictList.add(dict);
+        if (subList != null && subList.size() > 0) {
+            dictList.addAll(subList);
+        }
+        return dictList;
     }
 
     @Override
     public List<Dict> getCatagory() {
-        return null;
+        return dictDao.find("getCatagory");
     }
 
     @Override
-    public void delete(List<String> id) {
-
+    public void delete(List<String> ids) {
+        for (String id : ids) {
+            dictDao.delete("delete", id);
+        }
     }
 
     @Override
     public Dict getById(String id) {
-        return null;
+        return dictDao.findUnique("getById", id);
     }
 }

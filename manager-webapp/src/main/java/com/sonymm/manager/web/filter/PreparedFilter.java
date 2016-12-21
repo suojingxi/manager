@@ -15,7 +15,7 @@ import java.io.IOException;
  * @Author suojx(1466200463@qq.com)
  * @Date 2016/12/17 2:41
  */
-@WebFilter(filterName = "preparedFilter", urlPatterns = "/")
+@WebFilter(filterName = "preparedFilter", urlPatterns = "/*")
 public class PreparedFilter implements Filter {
     @Resource
     private Environment environment;
